@@ -1,0 +1,137 @@
+.analytics-page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 42px 24px 70px;
+}
+
+.analytics-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.analytics-header h1 {
+  font-size: clamp(34px, 4vw, 54px);
+}
+
+.summary-grid,
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.summary-card,
+.analytics-panel,
+.event-list {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.summary-card {
+  padding: 20px;
+}
+
+.summary-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.summary-card strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--teal-800);
+  font-size: 36px;
+  line-height: 1;
+}
+
+.analytics-grid {
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 14px;
+}
+
+.analytics-panel {
+  padding: 22px;
+}
+
+.analytics-panel h2,
+.event-list h2 {
+  margin: 0 0 16px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+}
+
+.analytics-panel ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.analytics-panel li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.analytics-panel li:last-child {
+  border-bottom: 0;
+}
+
+.analytics-panel li span {
+  color: var(--muted);
+}
+
+.analytics-panel li strong {
+  color: var(--teal-800);
+}
+
+.empty {
+  margin: 0;
+  color: var(--muted);
+}
+
+.event-list {
+  margin-top: 14px;
+  padding: 22px;
+}
+
+.event-table-wrap {
+  overflow-x: auto;
+}
+
+.event-list table {
+  min-width: 920px;
+}
+
+.event-list th,
+.event-list td {
+  padding: 11px 12px;
+  font-size: 13px;
+}
+
+.event-list td {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@media (max-width: 850px) {
+  .analytics-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .summary-grid,
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
