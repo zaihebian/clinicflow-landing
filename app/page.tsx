@@ -70,9 +70,6 @@ export default function Home() {
         <div className="section-heading">
           <p className="eyebrow">Core features</p>
           <h2>Everything the landing page needs to become measurable.</h2>
-          <p>
-            See which clinic prospects are engaging, what they care about, and when they are ready for a timely follow-up.
-          </p>
         </div>
         <div className="feature-grid">
           {features.map(([title, body]) => (
