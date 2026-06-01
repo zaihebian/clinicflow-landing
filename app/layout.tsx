@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 
-const mauticBaseUrl = "http://178.105.191.26:8080";
+const mauticBaseUrl = (process.env.MAUTIC_BASE_URL ?? "https://mautic.liqentech.com").replace(/\/$/, "");
 
 export const metadata: Metadata = {
   title: "ClinicFlow - GDPR-Compliant Marketing Automation for Clinics",

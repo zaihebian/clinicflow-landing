@@ -58,7 +58,7 @@ export default function Home() {
           />
           <div className="metric-panel">
             <span>Tracking script</span>
-            <strong>http://178.105.191.26:8080/mtc.js</strong>
+            <strong>https://mautic.liqentech.com/mtc.js</strong>
           </div>
         </div>
       </section>
