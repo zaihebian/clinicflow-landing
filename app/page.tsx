@@ -13,7 +13,7 @@ const features = [
 
 const steps = [
   ["Map the patient journey", "We identify forms, landing pages, reminders, and follow-up points that should be tracked."],
-  ["Deploy Mautic safely", "Mautic runs on your server, while page visits and form activity are captured through tracking scripts."],
+  ["Deploy Mautic safely", "Mautic runs on your server, while visitor interest and form activity are captured for follow-up."],
   ["Send hot leads to CRM", "High-intent contacts can be pushed to HubSpot, Pipedrive, or a task queue for your team."]
 ];
 
@@ -71,8 +71,7 @@ export default function Home() {
           <p className="eyebrow">Core features</p>
           <h2>Everything the landing page needs to become measurable.</h2>
           <p>
-            This Next.js version includes the Mautic pageview script and separate granular behavior capture for deeper
-            analysis.
+            See which clinic prospects are engaging, what they care about, and when they are ready for a timely follow-up.
           </p>
         </div>
         <div className="feature-grid">
