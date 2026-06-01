@@ -56,10 +56,6 @@ export default function Home() {
             src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80"
             alt="Clinician reviewing digital patient workflow on a tablet"
           />
-          <div className="metric-panel">
-            <span>Tracking script</span>
-            <strong>https://mautic.liqentech.com/mtc.js</strong>
-          </div>
         </div>
       </section>
 
