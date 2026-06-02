@@ -58,16 +58,16 @@ export function LeadForm() {
       <div className="form-row">
         <label>
           Your name
-          <input name="name" required placeholder="Dr. Martin" autoComplete="name" />
+          <input name="name" required placeholder="Dr. Smith" autoComplete="name" />
         </label>
         <label>
           Work email
-          <input name="email" type="email" required placeholder="you@clinic.com" autoComplete="email" />
+          <input name="email" type="email" required placeholder="doctor@yourclinic.ie" autoComplete="email" />
         </label>
       </div>
       <label>
         Clinic name
-        <input name="clinic" required placeholder="Cork Family Clinic" autoComplete="organization" />
+        <input name="clinic" required placeholder="Cork City Clinic" autoComplete="organization" />
       </label>
       <label>
         Clinic size
@@ -85,12 +85,20 @@ export function LeadForm() {
         <textarea name="challenge" placeholder="e.g. follow-up reminders too manual, GDPR compliance concerns..." />
       </label>
       <button className="primary-button wide" type="submit" disabled={status === "sent"} data-track-click="form-submit">
-        {status === "sent" ? "Received. We will reply within 48 hours." : "Book free assessment"}
+        {status === "sent" ? "✓ Received! We'll contact you within 48 hours." : "Book free assessment →"}
       </button>
       {status === "sent" ? (
         <div className="form-success" role="status" aria-live="polite">
-          <h3>You are confirmed for a free assessment.</h3>
-          <p>We will review your clinic profile and contact you within 48 hours.</p>
+          <h3>✓ You're confirmed for a free assessment!</h3>
+          <p>Here's what happens next:</p>
+          <ol>
+            <li>You'll receive a calendar invite within 24 hours</li>
+            <li>We'll review your clinic profile before the call</li>
+            <li>The call takes 30 minutes — no preparation needed</li>
+          </ol>
+          <p>
+            While you wait, <a href="#">download our GDPR Compliance Guide →</a>
+          </p>
         </div>
       ) : null}
       <p className="privacy-note">
