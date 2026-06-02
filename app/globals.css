@@ -156,8 +156,8 @@ h1 {
   margin: 0;
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(42px, 6vw, 72px);
-  line-height: 1.03;
+  font-size: clamp(38px, 5.2vw, 60px);
+  line-height: 1.08;
 }
 
 h2 {
@@ -382,6 +382,24 @@ textarea {
   color: var(--muted);
   font-size: 13px;
   text-align: center;
+}
+
+.form-success {
+  padding: 16px;
+  border: 1px solid var(--teal-100);
+  border-radius: 8px;
+  background: var(--teal-50);
+}
+
+.form-success h3 {
+  margin: 0 0 6px;
+  color: var(--teal-800);
+  font-size: 18px;
+}
+
+.form-success p {
+  margin: 0;
+  color: var(--muted);
 }
 
 footer {

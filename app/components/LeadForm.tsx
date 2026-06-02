@@ -19,6 +19,8 @@ export function LeadForm() {
     const name = String(form.get("name") ?? "");
     const email = String(form.get("email") ?? "");
     const clinic = String(form.get("clinic") ?? "");
+    const clinicSize = String(form.get("clinicSize") ?? "");
+    const challenge = String(form.get("challenge") ?? "").trim();
     const maxScrollDepth = Number(window.localStorage.getItem("clinicflow_max_scroll_depth") ?? "0");
     const clickedTargets = JSON.parse(window.localStorage.getItem("clinicflow_clicked_targets") ?? "[]") as string[];
     const viewedSections = JSON.parse(window.localStorage.getItem("clinicflow_viewed_sections") ?? "[]") as string[];
@@ -35,8 +37,8 @@ export function LeadForm() {
       section: "contact",
       target: "assessment-form",
       metadata: {
-        clinicSize: form.get("clinicSize"),
-        hasChallenge: Boolean(String(form.get("challenge") ?? "").trim()),
+        clinicSize,
+        hasChallenge: Boolean(challenge),
         maxScrollDepth,
         clickedTargets,
         viewedSections
@@ -44,7 +46,9 @@ export function LeadForm() {
       contact: {
         email,
         name,
-        clinic
+        clinic,
+        clinicSize,
+        challenge
       }
     });
   };
@@ -71,19 +75,27 @@ export function LeadForm() {
           <option value="" disabled>
             Select one
           </option>
-          <option value="1-3">1-3 clinicians</option>
-          <option value="4-10">4-10 clinicians</option>
-          <option value="10-plus">10+ clinicians</option>
+          <option value="1-3">1-3 doctors (small practice)</option>
+          <option value="4-10">4-10 doctors (mid-size clinic)</option>
+          <option value="10-plus">10+ doctors (multi-department)</option>
         </select>
       </label>
       <label>
-        Main challenge
-        <textarea name="challenge" placeholder="Manual reminders, GDPR worries, lost follow-ups..." />
+        What's your biggest challenge? (optional)
+        <textarea name="challenge" placeholder="e.g. follow-up reminders too manual, GDPR compliance concerns..." />
       </label>
       <button className="primary-button wide" type="submit" disabled={status === "sent"} data-track-click="form-submit">
         {status === "sent" ? "Received. We will reply within 48 hours." : "Book free assessment"}
       </button>
-      <p className="privacy-note">Your details are used only for this consultation request.</p>
+      {status === "sent" ? (
+        <div className="form-success" role="status" aria-live="polite">
+          <h3>You are confirmed for a free assessment.</h3>
+          <p>We will review your clinic profile and contact you within 48 hours.</p>
+        </div>
+      ) : null}
+      <p className="privacy-note">
+        Your information is used only for this consultation and nothing else, in accordance with GDPR Art. 6(1).
+      </p>
     </form>
   );
 }

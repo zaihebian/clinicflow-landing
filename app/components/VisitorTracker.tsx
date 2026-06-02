@@ -12,6 +12,8 @@ type EventPayload = {
     email?: string;
     name?: string;
     clinic?: string;
+    clinicSize?: string;
+    challenge?: string;
   };
 };
 

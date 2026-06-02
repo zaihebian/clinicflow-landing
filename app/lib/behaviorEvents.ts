@@ -20,6 +20,24 @@ export type BehaviorEventRow = BehaviorEventInput & {
   created_at: string;
 };
 
+export type LeadSubmissionInput = {
+  visitor_id?: string | null;
+  session_id?: string | null;
+  name?: string | null;
+  email: string;
+  clinic?: string | null;
+  clinic_size?: string | null;
+  challenge?: string | null;
+  page_url?: string | null;
+  page_path?: string | null;
+  referrer?: string | null;
+  max_scroll_depth?: number | null;
+  clicked_targets?: string[] | null;
+  viewed_sections?: string[] | null;
+  user_agent?: string | null;
+  ip_hint?: string | null;
+};
+
 export type CountRow = {
   label: string;
   count: number;
@@ -53,8 +71,18 @@ export function textValue(value: unknown) {
   return String(value).slice(0, 500);
 }
 
+export function longTextValue(value: unknown) {
+  if (value === undefined || value === null) return null;
+  return String(value).slice(0, 5000);
+}
+
 export async function insertBehaviorEvent(event: BehaviorEventInput) {
   const { error } = await getSupabaseAdmin().from("behavior_events").insert(event);
+  if (error) throw error;
+}
+
+export async function insertLeadSubmission(submission: LeadSubmissionInput) {
+  const { error } = await getSupabaseAdmin().from("lead_submissions").insert(submission);
   if (error) throw error;
 }
 

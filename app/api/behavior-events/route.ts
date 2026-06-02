@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { insertBehaviorEvent, isBehaviorDbConfigured, textValue } from "../../lib/behaviorEvents";
+import { insertBehaviorEvent, insertLeadSubmission, isBehaviorDbConfigured, longTextValue, textValue } from "../../lib/behaviorEvents";
 import { syncBehaviorToMautic } from "../../lib/mautic";
 
 export const runtime = "nodejs";
@@ -20,6 +20,8 @@ type BehaviorEvent = {
     email?: string;
     name?: string;
     clinic?: string;
+    clinicSize?: string;
+    challenge?: string;
   };
 };
 
@@ -49,6 +51,30 @@ export async function POST(request: NextRequest) {
   });
 
   if (body.type === "form_submit" && body.contact?.email) {
+    const clickedTargets = Array.isArray(body.metadata?.clickedTargets) ? body.metadata.clickedTargets.map(String) : [];
+    const viewedSections = Array.isArray(body.metadata?.viewedSections) ? body.metadata.viewedSections.map(String) : [];
+    const maxScrollDepth = Number(body.metadata?.maxScrollDepth ?? 0);
+    const clinicSize =
+      textValue(body.contact.clinicSize) ?? (typeof body.metadata?.clinicSize === "string" ? body.metadata.clinicSize : null);
+
+    await insertLeadSubmission({
+      visitor_id: textValue(body.visitorId),
+      session_id: textValue(body.sessionId),
+      name: textValue(body.contact.name),
+      email: textValue(body.contact.email) ?? "",
+      clinic: textValue(body.contact.clinic),
+      clinic_size: clinicSize,
+      challenge: longTextValue(body.contact.challenge),
+      page_url: textValue(body.pageUrl),
+      page_path: textValue(body.pagePath),
+      referrer: textValue(body.referrer),
+      max_scroll_depth: maxScrollDepth,
+      clicked_targets: clickedTargets,
+      viewed_sections: viewedSections,
+      user_agent: request.headers.get("user-agent"),
+      ip_hint: request.headers.get("x-forwarded-for")?.split(",")[0] ?? null
+    });
+
     await syncBehaviorToMautic(
       {
         email: body.contact.email,
@@ -56,10 +82,10 @@ export async function POST(request: NextRequest) {
         clinic: body.contact.clinic
       },
       {
-        maxScrollDepth: Number(body.metadata?.maxScrollDepth ?? 0),
-        clickedTargets: Array.isArray(body.metadata?.clickedTargets) ? body.metadata.clickedTargets.map(String) : [],
-        viewedSections: Array.isArray(body.metadata?.viewedSections) ? body.metadata.viewedSections.map(String) : [],
-        clinicSize: typeof body.metadata?.clinicSize === "string" ? body.metadata.clinicSize : null,
+        maxScrollDepth,
+        clickedTargets,
+        viewedSections,
+        clinicSize,
         hasChallenge: Boolean(body.metadata?.hasChallenge)
       }
     );
